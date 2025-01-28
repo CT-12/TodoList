@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"log"
+	"os"
 
 	"todo/internal/model"
 
@@ -19,6 +20,7 @@ var addCmd = &cobra.Command{
 		db, err := model.Connect()
 		if err != nil {
 			log.Fatal("failed to connect database")
+			os.Exit(1)
 		}
 		defer model.CloseDB(db)
 

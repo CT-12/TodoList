@@ -23,6 +23,7 @@ var showCmd = &cobra.Command{
 		db, err := model.Connect()
 		if err != nil {
 			log.Fatalln("failed to connect database")
+			os.Exit(1)
 		}
 		defer model.CloseDB(db)
 		tasks := model.GetAll(db)
