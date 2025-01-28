@@ -46,8 +46,9 @@ func GetAll(db *gorm.DB) *[]Task {
 	return &tasks
 }
 
+// UpdateOneByName updates the status of a task to 'Done' by its name
 func UpdateOneByName(db *gorm.DB, name string) {
-	// TODO
+	db.Model(&Task{}).Where("name = ?", name).Update("status", "Done")
 }
 
 func CloseDB(db *gorm.DB) {

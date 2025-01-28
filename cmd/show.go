@@ -59,48 +59,29 @@ func showTasks(tasks *[]model.Task) {
 	t.AppendHeader(header)
 
 	for i, task := range *tasks {
-		row := table.Row{i+1, task.Name, task.Status, formatTime(task.CreatedAt), formatTime(task.UpdatedAt)}
+		// 根據任務的狀態變更顏色
+		name := task.Name
+		status := task.Status
+		
+		// 根據狀態變色
+		switch status {
+		case "Pending":
+			name = text.Colors{text.FgHiRed}.Sprint(task.Name)
+			status = text.Colors{text.FgHiRed}.Sprint(task.Status)
+		case "Done":
+			name = text.Colors{text.FgHiGreen}.Sprint(task.Name)
+			status = text.Colors{text.FgHiGreen}.Sprint(task.Status)
+		}
+
+		// 添加行
+		row := table.Row{i + 1, name, status, formatTime(task.CreatedAt), formatTime(task.UpdatedAt)}
 		t.AppendRow(row)
 		t.AppendSeparator()
-
-		colorfulText(&t, &task)
 	}
 
 	t.Render()
 }
 
-
-func colorfulText(t *table.Writer, task *model.Task) {
-
-	(*t).SetColumnConfigs([]table.ColumnConfig {
-		{
-			Name: "Name",
-			Transformer: func(val interface{}) string {
-				switch task.Status {
-				case "Pending":
-					return text.Colors{text.FgHiRed}.Sprint(val)
-				case "Done":
-					return text.Colors{text.FgHiGreen}.Sprint(val)
-				default:
-					return val.(string)
-				}
-			},
-		},
-		{
-			Name: "Status",
-			Transformer: func(val interface{}) string {
-				switch task.Status {
-				case "Pending":
-					return text.Colors{text.FgHiRed}.Sprint(val)
-				case "Done":
-					return text.Colors{text.FgHiGreen}.Sprint(val)
-				default:
-					return val.(string)
-				}
-			},
-		},
-	})
-}
 
 func formatTime(t time.Time) string {
 	return t.Format("2006-01-02 15:04:05")
