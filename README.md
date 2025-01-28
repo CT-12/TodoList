@@ -50,10 +50,13 @@ Flags:
 ### update
 
 ```shell
+Update a task status to 'Done' in the todo list.
+
 Usage:
   todo update [flags]
 
 Flags:
   -h, --help          help for update
   -n, --name string   Name of the task to update
+  -p, --pending       Set the task status to 'pending' if true, default set to 'done'
 ```
