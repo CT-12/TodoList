@@ -11,13 +11,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	taskName string
-)
-
 // addCmd represents the add command
 var addCmd = &cobra.Command{
-	Use:   "add",
+	Use:   "add [Task name]",
 	Short: "Add a new task to todo list.",
 	Run: func(cmd *cobra.Command, args []string) {
 		db, err := model.Connect()
@@ -25,6 +21,8 @@ var addCmd = &cobra.Command{
 			log.Fatal("failed to connect database")
 		}
 		defer model.CloseDB(db)
+
+		taskName := args[0]
 
 		model.Insert(db, &model.Task{Name: taskName, Status: "Pending"})
 
@@ -38,8 +36,6 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 
 	// Here you will define your flags and configuration settings.
-	addCmd.Flags().StringVarP(&taskName, "name", "n", "", "Task name")
-	addCmd.MarkFlagRequired("name")
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// addCmd.PersistentFlags().String("foo", "", "A help for foo")

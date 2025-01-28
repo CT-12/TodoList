@@ -29,12 +29,13 @@ Use "todo [command] --help" for more information about a command.
 ### add
 
 ```shell
+Add a new task to todo list.
+
 Usage:
-  todo add [flags]
+  todo add [Task name] [flags]
 
 Flags:
-  -h, --help          help for add
-  -n, --name string   Task name
+  -h, --help   help for add
 ```
 
 ### show
