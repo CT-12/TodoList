@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
+Copyright © 2025 Chia-Tai, Lee <ctlee.8912@gmail.com>
 */
 package cmd
 

@@ -51,7 +51,7 @@ func GetAll(db *gorm.DB) *[]Task {
 }
 
 // UpdateOneByName updates the status of a task to 'Done' by its name
-func UpdateOneByName(db *gorm.DB, name string, pending bool) {
+func UpdateStatusByName(db *gorm.DB, name string, pending bool) {
 	if pending {
 		db.Model(&Task{}).Where("name = ?", name).Update("status", "Pending")
 	} else {
