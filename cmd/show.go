@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"To-do-list/internal/model"
+	"todo/internal/model"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -18,13 +18,7 @@ import (
 // showCmd represents the show command
 var showCmd = &cobra.Command{
 	Use:   "show",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Show all tasks in the todo list.",
 	Run: func(cmd *cobra.Command, args []string) {
 		db, err := model.Connect()
 		if err != nil {
@@ -62,7 +56,7 @@ func showTasks(tasks *[]model.Task) {
 		// 根據任務的狀態變更顏色
 		name := task.Name
 		status := task.Status
-		
+
 		// 根據狀態變色
 		switch status {
 		case "Pending":

@@ -1,4 +1,4 @@
-module To-do-list
+module todo
 
 go 1.22.5
 
