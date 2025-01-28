@@ -29,6 +29,8 @@ var addCmd = &cobra.Command{
 		model.Insert(db, &model.Task{Name: taskName, Status: "Pending"})
 
 		log.Println("Task added successfully")
+
+		showTasks(model.GetAll(db))
 	},
 }
 

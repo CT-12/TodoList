@@ -13,6 +13,7 @@ import (
 
 var (
 	name string
+	pending bool
 )
 
 // updateCmd represents the update command
@@ -26,7 +27,11 @@ var updateCmd = &cobra.Command{
 		}
 		defer model.CloseDB(db)
 
-		model.UpdateOneByName(db, name)
+		model.UpdateOneByName(db, name, pending)
+
+		log.Println("Task updated successfully")
+
+		showTasks(model.GetAll(db))
 	},
 }
 
@@ -35,6 +40,9 @@ func init() {
 
 	// Here you will define your flags and configuration settings.
 	updateCmd.Flags().StringVarP(&name, "name", "n", "", "Name of the task to update")
+	updateCmd.MarkFlagRequired("name")
+
+	updateCmd.Flags().BoolVarP(&pending, "pending", "p", false, "Set the task status to 'pending' if true, default set to 'done'")
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// updateCmd.PersistentFlags().String("foo", "", "A help for foo")
