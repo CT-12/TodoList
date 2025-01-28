@@ -13,8 +13,12 @@ type Task struct {
 	Status string
 }
 
+const (
+	DATABASE = "todo.db"
+)
+
 func Connect() (*gorm.DB, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(DATABASE), &gorm.Config{})
 	if err != nil {
 		log.Fatal("failed to connect database")
 		return nil, err
